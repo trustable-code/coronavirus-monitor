@@ -60,10 +60,16 @@ function OnLoadDataFinished() {
   { "US": "United States"
   , "Korea, South": "South Korea"
   };
+  const invalidCountries =
+  [ "Cruise Ship"
+  ];
   const data = JSON.parse(this.responseText);
   countries = [];
   for (var countryName in data) {
     const countryData = data[countryName];
+    if (invalidCountries.includes(countryName)) {
+      continue;
+    }
     if (countryName in renamingTable) {
       countryName = renamingTable[countryName];
     }
