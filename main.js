@@ -3,7 +3,7 @@
 const population =
 { "China": 1427647786
 , "Italy": 60317546
-, "Iran": 60317546
+, "Iran": 83183741
 , "Spain": 46733038
 , "Germany": 83149300
 , "France": 67022000
