@@ -51,7 +51,8 @@ h1 {
 
 table {
   border-collapse: collapse;
-  margin: 2px;
+  margin-top: 2px;
+  margin-bottom: 5px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -119,7 +120,7 @@ tr:hover {
 }
 
 .grey, td.NA {
-  color: #3E4854;
+  color: #45505B;
 }
 
 .red {
