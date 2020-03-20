@@ -183,7 +183,7 @@ function renderPage() {
     cell.appendChild(a);
     row.appendChild(cell);
     // population
-    addCellWithInt(row, Math.round(country.population / 100000) * 100000);
+    addCellWithInt(row, country.population);
     // cases
     addCellWithInt(row, country.cases);
     // cases per population
@@ -197,13 +197,18 @@ function renderPage() {
   }
 }
 
+function roundIntTo3SignificantDigits(value) {
+  const d = Math.pow(10, value.toString().length - 3);
+  return Math.round(value / d) * d;
+}
+
 function addCellWithInt(row, value) {
   if (value == 0) {
     addCellWithNaValue(row);
     return;
   }
   let cell = document.createElement("TD");
-  cell.appendChild(document.createTextNode(value.toLocaleString()));
+  cell.appendChild(document.createTextNode(roundIntTo3SignificantDigits(value).toLocaleString()));
   cell.classList.add("number");
   row.appendChild(cell);
 }
