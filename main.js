@@ -222,9 +222,19 @@ function renderPage() {
   }
 }
 
-function roundIntTo3SignificantDigits(value) {
-  const d = Math.pow(10, value.toString().length - 3);
-  return Math.round(value / d) * d;
+function roundTo3SignificantDigits(value) {
+  if (value > 100) {
+    const d = Math.pow(10, value.toString().length - 3);
+    return Math.round(value / d) * d;
+  } else {
+    var d = 1;
+    var x = value;
+    while (x < 100) {
+      x = x * 10;
+      d = d * 10;
+    }
+    return Math.round(value * d) / d;
+  }
 }
 
 function addCellWithInt(row, value) {
@@ -233,7 +243,7 @@ function addCellWithInt(row, value) {
     return;
   }
   let cell = document.createElement("TD");
-  cell.appendChild(document.createTextNode(roundIntTo3SignificantDigits(value).toLocaleString()));
+  cell.appendChild(document.createTextNode(roundTo3SignificantDigits(value).toLocaleString()));
   cell.classList.add("number");
   row.appendChild(cell);
 }
@@ -244,7 +254,7 @@ function addCellWithRatio(row, value, numberOfDecimals) {
     return;
   }
   let cell = document.createElement("TD");
-  var text = (value * 100).toFixed(numberOfDecimals);
+  var text = roundTo3SignificantDigits(value * 100).toFixed(numberOfDecimals);
   var grey = true;
   for (var i = 0; i < text.length; i++) {
     const char = text[i];
