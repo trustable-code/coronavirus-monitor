@@ -22,6 +22,15 @@ const population =
 , "Denmark": 5822763
 , "Iraq": 38433600
 , "Poland": 38386000
+, "Malaysia": 32772100
+, "Canada": 37894799
+, "Portugal": 10276617
+, "San Marino": 33344
+, "Algeria": 43000000
+, "Australia": 25652000
+, "Brazil": 210147125
+, "Greece": 10768477
+, "India": 1352642280
 };
 
 const countriesWikiUrlThe =
