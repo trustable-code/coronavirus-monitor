@@ -40,22 +40,39 @@ const countriesWikiUrlThe =
 , "Philippines"
 ];
 
-const maxDisplayCountries = 20;
+var countries = {};
+var maxDisplayCountries;
+var sortColumnIndex;
 
 const dynamicContent = document.createElement("DIV");
 document.body.appendChild(dynamicContent);
 
-var countries = {};
-var curSortColumnIndex = -1;
+function main() {
+  const headline = document.getElementsByTagName("H1")[0];
+  headline.addEventListener("click", function(event) {
+    event.preventDefault();
+    reset();
+    sortCountries();
+    renderPage();
+  });
+  headline.style.cursor = "pointer";
+  reset();
+  loadData();
+}
+
+function reset() {
+  maxDisplayCountries = 20;
+  sortColumnIndex = 5;
+}
 
 function loadData() {
   let r = new XMLHttpRequest();
-  r.addEventListener("load", OnLoadDataFinished);
+  r.addEventListener("load", onLoadDataFinished);
   r.open("GET", "https://pomber.github.io/covid19/timeseries.json");
   r.send();
 }
 
-function OnLoadDataFinished() {
+function onLoadDataFinished() {
   const renamingTable =
   { "US": "United States"
   , "Korea, South": "South Korea"
@@ -99,11 +116,11 @@ function OnLoadDataFinished() {
     }
     countries.push(country);
   }
-  sortCountries(5);
+  sortCountries();
   renderPage();
 }
 
-function sortCountries(sortColumnIndex) {
+function sortCountries() {
   if (sortColumnIndex == 1) {
     countries.sort(function(a, b) {
       return a.population < b.population ? 1 : -1;
@@ -134,7 +151,6 @@ function sortCountries(sortColumnIndex) {
       return a.deathsCasesRatio < b.deathsCasesRatio ? 1 : -1;
     });
   }
-  curSortColumnIndex = sortColumnIndex;
 }
 
 function renderPage() {
@@ -150,8 +166,7 @@ function renderPage() {
   for (const i in columns) {
     const cell = document.createElement("TH");
     cell.appendChild(document.createTextNode(columns[i]));
-    if (i == curSortColumnIndex) {
-
+    if (i == sortColumnIndex) {
       const sortIcon = document.createElement("SPAN");
       sortIcon.classList.add("sortIcon");
       cell.appendChild(sortIcon);
@@ -159,7 +174,8 @@ function renderPage() {
     } else if (i > 0) {
       cell.addEventListener("click", function(event) {
         event.preventDefault();
-        sortCountries(i);
+        sortColumnIndex = i;
+        sortCountries();
         renderPage();
       });
       cell.classList.add("sortable");
@@ -169,6 +185,15 @@ function renderPage() {
 
   for (const i in countries) {
     if (i >= maxDisplayCountries) {
+      const a = document.createElement("A");
+      dynamicContent.appendChild(a);
+      a.href = '#';
+      a.appendChild(document.createTextNode("More entries"));
+      a.addEventListener("click", function(event) {
+        event.preventDefault();
+        maxDisplayCountries = maxDisplayCountries + 10;
+        renderPage();
+      });
       break;
     }
     const country = countries[i];
@@ -247,4 +272,4 @@ function addCellWithNaValue(row) {
   row.appendChild(cell);
 }
 
-loadData();
+main();
