@@ -31,6 +31,14 @@ const population =
 , "Brazil": 210147125
 , "Greece": 10768477
 , "India": 1352642280
+, "Egypt": 100075480
+, "Turkey": 82003882
+, "Luxembourg": 613894
+, "Peru": 32824358
+, "Ecuador": 17084358
+, "Lebanon": 6859408
+, "Argentina": 44938712
+, "Hungary": 9772756
 };
 
 const countriesWikiUrlThe =
