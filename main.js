@@ -70,7 +70,7 @@ function main() {
 
 function reset() {
   maxDisplayCountries = 20;
-  sortColumnIndex = 5;
+  sortColumnIndex = 6;
 }
 
 function loadData() {
@@ -112,6 +112,12 @@ function onLoadDataFinished() {
     if (country.cases < 50) {
       continue;
     }
+    const numberOfDays = 3;
+    if (countryData.length > numberOfDays) {
+      country.casesIncrease = (country.cases / countryData[countryData.length - numberOfDays - 1]["confirmed"] - 1) / numberOfDays;
+    } else {
+      country.casesIncrease = 0;
+    }
     country.deathsCasesRatio = country.deaths / country.cases;
     if (countryName in population) {
       country.population = population[countryName];
@@ -146,15 +152,20 @@ function sortCountries() {
   }
   else if (sortColumnIndex == 4) {
     countries.sort(function(a, b) {
-      return a.deaths < b.deaths ? 1 : -1;
+      return a.casesIncrease < b.casesIncrease ? 1 : -1;
     });
   }
   else if (sortColumnIndex == 5) {
     countries.sort(function(a, b) {
-      return a.deathsRatio < b.deathsRatio ? 1 : -1;
+      return a.deaths < b.deaths ? 1 : -1;
     });
   }
   else if (sortColumnIndex == 6) {
+    countries.sort(function(a, b) {
+      return a.deathsRatio < b.deathsRatio ? 1 : -1;
+    });
+  }
+  else if (sortColumnIndex == 7) {
     countries.sort(function(a, b) {
       return a.deathsCasesRatio < b.deathsCasesRatio ? 1 : -1;
     });
@@ -170,10 +181,14 @@ function renderPage() {
   // Table head
   const row = document.createElement("TR");
   table.appendChild(row);
-  const columns = ["Country", "Population", "Cases", "Cases/Population", "Deaths", "Deaths/Population", "Deaths/Cases"];
+  const columns = ["Country", "Population", "Cases", "Cases/Population", "Cases Increase per Day", "Deaths", "Deaths/Population", "Deaths/Cases"];
+  const columnTooltips = {4: "Average of the last 3 days"};
   for (const i in columns) {
     const cell = document.createElement("TH");
     cell.appendChild(document.createTextNode(columns[i]));
+    if (i in columnTooltips) {
+      cell.title = columnTooltips[i];
+    }
     if (i == sortColumnIndex) {
       const sortIcon = document.createElement("SPAN");
       sortIcon.classList.add("sortIcon");
@@ -220,18 +235,20 @@ function renderPage() {
     // cases
     addCellWithInt(row, country.cases);
     // cases per population
-    addCellWithRatio(row, country.casesRatio, 4);
+    addCellWithRatio(row, country.casesRatio, 3, 0.0001);
+    // cases increase
+    addCellWithRatio(row, country.casesIncrease, 0, 0.1);
     // deaths
     addCellWithInt(row, country.deaths);
     // deaths per population
-    addCellWithRatio(row, country.deathsRatio, 6);
+    addCellWithRatio(row, country.deathsRatio, 5, 0.000002);
     // deaths per cases
-    addCellWithRatio(row, country.deathsCasesRatio, 2);
+    addCellWithRatio(row, country.deathsCasesRatio, 1, 0.01);
   }
 }
 
 function roundTo3SignificantDigits(value) {
-  if (value > 100) {
+  if (value > 1000) {
     const d = Math.pow(10, value.toString().length - 3);
     return Math.round(value / d) * d;
   } else {
@@ -256,7 +273,7 @@ function addCellWithInt(row, value) {
   row.appendChild(cell);
 }
 
-function addCellWithRatio(row, value, numberOfDecimals) {
+function addCellWithRatio(row, value, numberOfDecimals, redAbove) {
   if (value == 0) {
     addCellWithNaValue(row);
     return;
@@ -273,7 +290,7 @@ function addCellWithRatio(row, value, numberOfDecimals) {
     span.appendChild(document.createTextNode(char));
     if (grey) {
       span.classList.add("grey");
-    } else {
+    } else if (redAbove != -1 && value > redAbove) {
       span.classList.add("red");
     }
     cell.appendChild(span);
