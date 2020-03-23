@@ -48,6 +48,8 @@ const countriesWikiUrlThe =
 , "Philippines"
 ];
 
+const casesIncreaseDays = 4;
+
 var countries = {};
 var maxDisplayCountries;
 var sortColumnIndex;
@@ -112,9 +114,9 @@ function onLoadDataFinished() {
     if (country.cases < 50) {
       continue;
     }
-    const numberOfDays = 3;
-    if (countryData.length > numberOfDays) {
-      country.casesIncrease = (country.cases / countryData[countryData.length - numberOfDays - 1]["confirmed"] - 1) / numberOfDays;
+    if (countryData.length > casesIncreaseDays) {
+      const oldCases = countryData[countryData.length - casesIncreaseDays - 1]["confirmed"];
+      country.casesIncrease = Math.pow(country.cases / oldCases, 1 / casesIncreaseDays) - 1;
     } else {
       country.casesIncrease = 0;
     }
@@ -182,7 +184,7 @@ function renderPage() {
   const row = document.createElement("TR");
   table.appendChild(row);
   const columns = ["Country", "Population", "Cases", "Cases/Population", "Cases Increase per Day", "Deaths", "Deaths/Population", "Deaths/Cases"];
-  const columnTooltips = {4: "Average of the last 3 days"};
+  const columnTooltips = {4: "Average of the last " + casesIncreaseDays + " days"};
   for (const i in columns) {
     const cell = document.createElement("TH");
     cell.appendChild(document.createTextNode(columns[i]));
