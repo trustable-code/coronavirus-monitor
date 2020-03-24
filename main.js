@@ -114,8 +114,8 @@ function onLoadDataFinished() {
     if (country.cases < 50) {
       continue;
     }
-    if (countryData.length > casesIncreaseDays) {
-      const oldCases = countryData[countryData.length - casesIncreaseDays - 1]["confirmed"];
+    const oldCases = countryData[countryData.length - casesIncreaseDays - 1]["confirmed"];
+    if (oldCases > 0) {
       country.casesIncrease = Math.pow(country.cases / oldCases, 1 / casesIncreaseDays) - 1;
     } else {
       country.casesIncrease = 0;
@@ -290,7 +290,7 @@ function addCellWithRatio(row, value, numberOfDecimals, redAbove) {
     }
     var span = document.createElement("SPAN");
     span.appendChild(document.createTextNode(char));
-    if (grey) {
+    if (grey && i < text.length - 1) {
       span.classList.add("grey");
     } else if (redAbove != -1 && value > redAbove) {
       span.classList.add("red");
