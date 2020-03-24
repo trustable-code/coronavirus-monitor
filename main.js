@@ -237,13 +237,13 @@ function renderPage() {
     // cases
     addCellWithInt(row, country.cases);
     // cases per population
-    addCellWithRatio(row, country.casesRatio, 3, 0.0001);
+    addCellWithRatio(row, country.casesRatio, 3, 0.001);
     // cases increase
     addCellWithRatio(row, country.casesIncrease, 0, 0.1);
     // deaths
     addCellWithInt(row, country.deaths);
     // deaths per population
-    addCellWithRatio(row, country.deathsRatio, 5, 0.000002);
+    addCellWithRatio(row, country.deathsRatio, 5, 0.00005);
     // deaths per cases
     addCellWithRatio(row, country.deathsCasesRatio, 1, 0.01);
   }
