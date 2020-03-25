@@ -100,6 +100,10 @@ td {
   text-align: left;
 }
 
+td.index {
+  text-align: center;
+}
+
 td.number {
   text-align: right;
   font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;

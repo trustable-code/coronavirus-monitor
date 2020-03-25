@@ -24,7 +24,7 @@ function main() {
 
 function reset() {
   maxDisplayCountries = 20;
-  sortColumnIndex = 6;
+  sortColumnIndex = 7;
 }
 
 function loadData() {
@@ -89,37 +89,37 @@ function onLoadDataFinished() {
 }
 
 function sortCountries() {
-  if (sortColumnIndex == 1) {
+  if (sortColumnIndex == 2) {
     countries.sort(function(a, b) {
       return a.population < b.population ? 1 : -1;
     });
   }
-  else if (sortColumnIndex == 2) {
+  else if (sortColumnIndex == 3) {
     countries.sort(function(a, b) {
       return a.cases < b.cases ? 1 : -1;
     });
   }
-  else if (sortColumnIndex == 3) {
+  else if (sortColumnIndex == 4) {
     countries.sort(function(a, b) {
       return a.casesRatio < b.casesRatio ? 1 : -1;
     });
   }
-  else if (sortColumnIndex == 4) {
+  else if (sortColumnIndex == 5) {
     countries.sort(function(a, b) {
       return a.casesIncrease < b.casesIncrease ? 1 : -1;
     });
   }
-  else if (sortColumnIndex == 5) {
+  else if (sortColumnIndex == 6) {
     countries.sort(function(a, b) {
       return a.deaths < b.deaths ? 1 : -1;
     });
   }
-  else if (sortColumnIndex == 6) {
+  else if (sortColumnIndex == 7) {
     countries.sort(function(a, b) {
       return a.deathsRatio < b.deathsRatio ? 1 : -1;
     });
   }
-  else if (sortColumnIndex == 7) {
+  else if (sortColumnIndex == 8) {
     countries.sort(function(a, b) {
       return a.deathsCasesRatio < b.deathsCasesRatio ? 1 : -1;
     });
@@ -135,8 +135,8 @@ function renderPage() {
   // Table head
   const row = document.createElement("TR");
   table.appendChild(row);
-  const columns = ["Country", "Population", "Cases", "Cases/Population", "Cases Increase per Day", "Deaths", "Deaths/Population", "Deaths/Cases"];
-  const columnTooltips = {4: "Average of the last " + casesIncreaseDays + " days"};
+  const columns = ["#", "Country", "Population", "Cases", "Cases/Population", "Cases Increase per Day", "Deaths", "Deaths/Population", "Deaths/Cases"];
+  const columnTooltips = {5: "Average of the last " + casesIncreaseDays + " days"};
   for (const i in columns) {
     const cell = document.createElement("TH");
     cell.appendChild(document.createTextNode(columns[i]));
@@ -148,7 +148,7 @@ function renderPage() {
       sortIcon.classList.add("sortIcon");
       cell.appendChild(sortIcon);
       sortIcon.appendChild(document.createElement("SPAN"));
-    } else if (i > 0) {
+    } else if (i > 1) {
       cell.addEventListener("click", function(event) {
         event.preventDefault();
         sortColumnIndex = i;
@@ -176,12 +176,17 @@ function renderPage() {
     const country = countries[i];
     const row = document.createElement("TR");
     table.appendChild(row);
+    // index
+    var cell = document.createElement("TD");
+    cell.appendChild(document.createTextNode(parseInt(i) + 1));
+    cell.classList.add("index");
+    row.appendChild(cell);
     // country
     var a = document.createElement("A");
     a.href = country.wikiUrl;
     a.target = "_blank";
     a.appendChild(document.createTextNode(country.name));
-    var cell = document.createElement("TD");
+    cell = document.createElement("TD");
     cell.appendChild(a);
     row.appendChild(cell);
     // population
