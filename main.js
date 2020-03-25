@@ -23,7 +23,7 @@ function main() {
 }
 
 function reset() {
-  maxDisplayCountries = 20;
+  maxDisplayCountries = 25;
   sortColumnIndex = 7;
 }
 
@@ -169,7 +169,7 @@ function renderPage() {
       a.appendChild(document.createTextNode("More entries"));
       a.addEventListener("click", function(event) {
         event.preventDefault();
-        maxDisplayCountries = maxDisplayCountries + 10;
+        maxDisplayCountries = maxDisplayCountries + 25;
         renderPage();
       });
       break;
