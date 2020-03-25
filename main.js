@@ -164,6 +164,7 @@ function renderPage() {
     if (i >= maxDisplayCountries) {
       const a = document.createElement("A");
       dynamicContent.appendChild(a);
+      a.classList.add("button");
       a.href = '#';
       a.appendChild(document.createTextNode("More entries"));
       a.addEventListener("click", function(event) {

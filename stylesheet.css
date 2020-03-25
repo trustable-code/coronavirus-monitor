@@ -42,6 +42,12 @@ a:hover {
   text-decoration-color: inherit;
 }
 
+a.button {
+  text-decoration: none;
+  display: inline-block;
+  margin: 5px;
+}
+
 h1 {
   font-size: 230%;
   font-weight: bold;
