@@ -39,6 +39,19 @@ const population =
 , "Lebanon": 6859408
 , "Argentina": 44938712
 , "Hungary": 9772756
+, "Romania": 19401658
+, "Ireland": 4921500
+, "Pakistan": 212228286
+, "Israel": 9175950
+, "Chile": 17574003
+, "Thailand": 69428453
+, "Finland": 5521158
+, "Saudi Arabia": 34218169
+, "Iceland": 364260
+, "Singapore": 5638700
+, "Panama": 4176869
+, "Dominican Republic": 10735896
+, "Czechia": 10649800
 };
 
 const countriesWikiUrlThe =
@@ -46,4 +59,5 @@ const countriesWikiUrlThe =
 , "United Kingdom"
 , "Netherlands"
 , "Philippines"
+, "Dominican Republic"
 ];
