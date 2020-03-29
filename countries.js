@@ -52,6 +52,10 @@ const population =
 , "Panama": 4176869
 , "Dominican Republic": 10735896
 , "Czechia": 10649800
+, "Russia": 146745098
+, "South Africa": 58775022
+, "Mexico": 126577691
+, "Morocco": 35581294
 };
 
 const countriesWikiUrlThe =
