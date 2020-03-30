@@ -189,6 +189,9 @@ function renderPage() {
     a.appendChild(document.createTextNode(country.name));
     cell = document.createElement("TD");
     cell.appendChild(a);
+    if (country.name in countriesAdditionText) {
+      cell.innerHTML = cell.innerHTML + " <small>(" + countriesAdditionText[country.name] + ")</small>";
+    }
     row.appendChild(cell);
     // population
     addCellWithInt(row, country.population);

@@ -65,3 +65,7 @@ const countriesWikiUrlThe =
 , "Philippines"
 , "Dominican Republic"
 ];
+
+const countriesAdditionText =
+{ "China": "probably wrong numbers<sup><a href=\"https://www.rfa.org/english/news/china/wuhan-deaths-03272020182846.html\" target=\"_blank\">[1]</a><a href=\"https://www.businessinsider.com/coronavirus-boris-johnsons-government-reportedly-furious-with-china-2020-3?r=DE&IR=T\" target=\"_blank\">[2]</a></sup>"
+};
