@@ -118,7 +118,7 @@ td.number {
 
 td.number > span {
   display: inline-block;
-  padding-left: 1px;
+  padding-left: 0.5px;
 }
 
 td.NA {
