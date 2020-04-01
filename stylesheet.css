@@ -76,6 +76,7 @@ th {
   font-weight: normal;
   padding-top: 6px;
   padding-bottom: 6px;
+  white-space: pre-wrap;
 }
 
 th.sortable {
