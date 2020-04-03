@@ -56,6 +56,10 @@ const population =
 , "South Africa": 58775022
 , "Mexico": 126577691
 , "Morocco": 35581294
+, "Serbia": 6963764
+, "Ukraine": 42030832
+, "Colombia": 50372424
+, "Slovenia": 2094060
 };
 
 const countriesWikiUrlThe =
