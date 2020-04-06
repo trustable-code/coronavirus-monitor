@@ -215,7 +215,7 @@ function renderPage() {
     // deaths
     addCellWithInt(row, country.deaths);
     // deaths per population
-    addCellWithRatio(row, country.deathsRatio, 5, 0.0001);
+    addCellWithRatio(row, country.deathsRatio, 4, 0.0001);
     // deaths per cases
     addCellWithRatio(row, country.deathsCasesRatio, 1, 0.02);
   }
