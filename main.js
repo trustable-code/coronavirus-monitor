@@ -1,6 +1,6 @@
 "use strict";
 
-const casesIncreaseDays = 4;
+const casesIncreaseDays = 5;
 
 var countries = {};
 var maxDisplayCountries;
