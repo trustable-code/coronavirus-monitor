@@ -209,15 +209,15 @@ function renderPage() {
     // cases per population
     addCellWithRatio(row, country.casesRatio, 3);
     // cases growth rate per day
-    addCellWithRatio(row, country.casesGrowthRate, 0);
+    addCellWithRatio(row, country.casesGrowthRate, 1);
     // cses growth per population and month
-    addCellWithRatio(row, country.casesIncreaseRatio, 1, 0.015);
+    addCellWithRatio(row, country.casesIncreaseRatio, 2, 0.01);
     // deaths
     addCellWithInt(row, country.deaths);
     // deaths per population
-    addCellWithRatio(row, country.deathsRatio, 4, 0.0003);
+    addCellWithRatio(row, country.deathsRatio, 4, 0.0004);
     // deaths per cases
-    addCellWithRatio(row, country.deathsCasesRatio, 1, 0.03);
+    addCellWithRatio(row, country.deathsCasesRatio, 1, 0.05);
   }
 }
 
