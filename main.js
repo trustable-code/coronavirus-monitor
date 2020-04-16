@@ -86,6 +86,18 @@ function onLoadDataFinished() {
         country.casesIncreaseRatio = (country.cases * Math.pow(1 + country.casesGrowthRate, 30)) / country.population;
       }
     }
+
+    country.deathRatePerYear = 0;
+    if (country.population > 0) {
+      for (var i = 0; i < countryData.length; i++) {
+        if (countryData[i]["deaths"] / country.population >= 0.0000001) {
+          const daysSinceStart = countryData.length - i;
+          country.deathRatePerYear = country.deaths / country.population / daysSinceStart * 365;
+          break;
+        }
+      }
+    }
+
     countries.push(country);
   }
   sortCountries();
@@ -133,6 +145,11 @@ function sortCountries() {
       return a.deathsCasesRatio < b.deathsCasesRatio ? 1 : -1;
     });
   }
+  else if (sortColumnIndex == 10) {
+    countries.sort(function(a, b) {
+      return a.deathRatePerYear < b.deathRatePerYear ? 1 : -1;
+    });
+  }
 }
 
 function renderPage() {
@@ -144,7 +161,7 @@ function renderPage() {
   // Table head
   const row = document.createElement("TR");
   table.appendChild(row);
-  const columns = ["#", "Country", "Population", "Cases", "Cases/Population", "Cases Growth\nRate per Day", "Cases/Population\nGrowth per Month", "Deaths", "Deaths/Population", "Deaths/Cases"];
+  const columns = ["#", "Country", "Population", "Cases", "Cases/Population", "Cases Growth\nRate per Day", "Cases/Population\nGrowth per Month", "Deaths", "Deaths/Population", "Deaths/Cases", "Death Rate\nper Year"];
   const columnTooltips = {5: "Average of the last " + casesIncreaseDays + " days"};
   for (const i in columns) {
     const cell = document.createElement("TH");
@@ -218,6 +235,8 @@ function renderPage() {
     addCellWithRatio(row, country.deathsRatio, 4, 0.0004);
     // deaths per cases
     addCellWithRatio(row, country.deathsCasesRatio, 1, 0.05);
+    // death rate per year
+    addCellWithRatio(row, country.deathRatePerYear, 2, 0.002);
   }
 }
 
