@@ -60,6 +60,11 @@ const population =
 , "Ukraine": 42030832
 , "Colombia": 50372424
 , "Slovenia": 2094060
+, "Bangladesh": 161376708
+, "United Arab Emirates": 9599353
+, "Qatar": 2641669
+, "Belarus": 9491800
+, "Bahamas": 385637
 };
 
 const countriesWikiUrlThe =
@@ -68,6 +73,8 @@ const countriesWikiUrlThe =
 , "Netherlands"
 , "Philippines"
 , "Dominican Republic"
+, "United Arab Emirates"
+, "Bahamas"
 ];
 
 const countriesAdditionText =
