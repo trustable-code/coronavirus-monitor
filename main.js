@@ -234,7 +234,7 @@ function renderPage() {
     // deaths per population
     addCellWithRatio(row, country.deathsRatio, 4, 0.0004);
     // deaths per cases
-    addCellWithRatio(row, country.deathsCasesRatio, 1, 0.05);
+    addCellWithRatio(row, country.deathsCasesRatio, 1, 0.1);
     // death rate per year
     addCellWithRatio(row, country.deathRatePerYear, 2, 0.002);
   }
@@ -274,7 +274,7 @@ function addCellWithRatio(row, value, numberOfDecimals, redAbove) {
     return;
   }
   let cell = document.createElement("TD");
-  var text = roundTo3SignificantDigits(value * 100).toFixed(numberOfDecimals);
+  const text = roundTo3SignificantDigits(value * 100).toFixed(numberOfDecimals);
   var grey = true;
   for (var i = 0; i < text.length; i++) {
     const char = text[i];
