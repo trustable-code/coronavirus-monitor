@@ -244,6 +244,8 @@ function roundTo3SignificantDigits(value) {
   if (value > 1000) {
     const d = Math.pow(10, value.toString().length - 3);
     return Math.round(value / d) * d;
+  } else if (value <= 0.00000001) {
+    return value;
   } else {
     var d = 1;
     var x = value;
