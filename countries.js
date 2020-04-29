@@ -65,6 +65,9 @@ const population =
 , "Qatar": 2641669
 , "Belarus": 9491800
 , "Bahamas": 385637
+, "Moldova": 2681735
+, "North Macedonia": 2077132
+, "Honduras": 9587522
 };
 
 const countriesWikiUrlThe =
@@ -75,6 +78,7 @@ const countriesWikiUrlThe =
 , "Dominican Republic"
 , "United Arab Emirates"
 , "Bahamas"
+, "Central African Republic"
 ];
 
 const countriesAdditionText =
