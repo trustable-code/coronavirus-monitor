@@ -74,6 +74,9 @@ function onLoadDataFinished() {
     const oldCases = countryData[countryData.length - casesIncreaseDays - 1]["confirmed"];
     if (oldCases > 0) {
       country.casesGrowthRate = Math.pow(country.cases / oldCases, 1 / casesIncreaseDays) - 1;
+      if (country.casesGrowthRate < 0) {
+        country.casesGrowthRate = 0;
+      }
     } else {
       country.casesGrowthRate = 0;
     }
