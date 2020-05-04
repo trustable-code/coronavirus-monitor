@@ -55,7 +55,7 @@ function onLoadDataFinished() {
     const latestDataSet = countryData[countryData.length - 1];
     var country = {};
     country.name = countryName;
-    country.wikiUrl = "https://en.wikipedia.org/wiki/2020_coronavirus_pandemic_in_";
+    country.wikiUrl = "https://en.wikipedia.org/wiki/COVID-19_pandemic_in_";
     if (countriesWikiUrlThe.includes(countryName)) {
       country.wikiUrl = country.wikiUrl + "the_";
     }
