@@ -68,6 +68,7 @@ const population =
 , "Moldova": 2681735
 , "North Macedonia": 2077132
 , "Honduras": 9587522
+, "Bolivia": 11428245
 };
 
 const countriesWikiUrlThe =
