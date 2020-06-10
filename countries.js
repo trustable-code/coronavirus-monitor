@@ -69,6 +69,12 @@ const population =
 , "North Macedonia": 2077132
 , "Honduras": 9587522
 , "Bolivia": 11428245
+, "Sudan": 41592539
+, "Afghanistan": 32225560
+, "Nigeria": 204630269
+, "Kuwait": 4420110
+, "Oman": 4829473
+, "Bahrain": 1543300
 };
 
 const countriesWikiUrlThe =
