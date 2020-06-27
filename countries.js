@@ -75,6 +75,8 @@ const population =
 , "Kuwait": 4420110
 , "Oman": 4829473
 , "Bahrain": 1543300
+, "Guatemala": 17263239
+, "Armenia": 2956900
 };
 
 const countriesWikiUrlThe =
