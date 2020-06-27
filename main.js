@@ -231,11 +231,11 @@ function renderPage() {
     // cases growth rate per day
     addCellWithRatio(row, country.casesGrowthRate, 1);
     // cses growth per population and month
-    addCellWithRatio(row, country.casesIncreaseRatio, 2, 0.01);
+    addCellWithRatio(row, country.casesIncreaseRatio, 2, 0.02);
     // deaths
     addCellWithInt(row, country.deaths);
     // deaths per population
-    addCellWithRatio(row, country.deathsRatio, 3, 0.0005);
+    addCellWithRatio(row, country.deathsRatio, 3, 0.0006);
     // deaths per cases
     addCellWithRatio(row, country.deathsCasesRatio, 1, 0.1);
     // death rate per year
