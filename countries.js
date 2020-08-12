@@ -77,6 +77,9 @@ const population =
 , "Bahrain": 1543300
 , "Guatemala": 17263239
 , "Armenia": 2956900
+, "Kyrgyzstan": 6533500
+, "Kazakhstan": 18711200
+, "El Salvador": 6420746
 };
 
 const countriesWikiUrlThe =
