@@ -5,6 +5,7 @@ const casesIncreaseDays = 7;
 var countries = {};
 var maxDisplayCountries;
 var sortColumnIndex;
+var hideSmallCountries;
 
 const dynamicContent = document.createElement("DIV");
 document.body.appendChild(dynamicContent);
@@ -25,6 +26,7 @@ function main() {
 function reset() {
   maxDisplayCountries = 25;
   sortColumnIndex = 8;
+  hideSmallCountries = false;
 }
 
 function loadData() {
@@ -158,6 +160,12 @@ function sortCountries() {
 function renderPage() {
   dynamicContent.innerHTML = "";
 
+  renderFilterButtons();
+
+  renderTable();
+}
+
+function renderTable() {
   const table = document.createElement("TABLE");
   dynamicContent.appendChild(table);
 
@@ -189,8 +197,16 @@ function renderPage() {
     row.appendChild(cell);
   }
 
+  // table body
+  var count = 0;
   for (const i in countries) {
-    if (i >= maxDisplayCountries) {
+    const country = countries[i];
+
+    if (hideSmallCountries && country.population < 20000000) {
+      continue;
+    }
+
+    if (count >= maxDisplayCountries) {
       const a = document.createElement("A");
       dynamicContent.appendChild(a);
       a.classList.add("button");
@@ -203,12 +219,12 @@ function renderPage() {
       });
       break;
     }
-    const country = countries[i];
+
     const row = document.createElement("TR");
     table.appendChild(row);
     // index
     var cell = document.createElement("TD");
-    cell.appendChild(document.createTextNode(parseInt(i) + 1));
+    cell.appendChild(document.createTextNode(count + 1));
     cell.classList.add("index");
     row.appendChild(cell);
     // country
@@ -240,7 +256,36 @@ function renderPage() {
     addCellWithRatio(row, country.deathsCasesRatio, 1, 0.1);
     // death rate per year
     addCellWithRatio(row, country.deathRatePerYear, 2, 0.002);
+
+    count++;
   }
+}
+
+function renderFilterButtons() {
+  if (!hideSmallCountries) {
+    const hideSmallCountriesButton = addButton("Hide small countries");
+    hideSmallCountriesButton.addEventListener("click", function(event) {
+      event.preventDefault();
+      hideSmallCountries = true;
+      renderPage();
+    });
+  } else {
+    const showSmallCountriesButton = addButton("Show small countries");
+    showSmallCountriesButton.addEventListener("click", function(event) {
+      event.preventDefault();
+      hideSmallCountries = false;
+      renderPage();
+    });
+  }
+}
+
+function addButton(title) {
+  const button = document.createElement("A");
+  dynamicContent.appendChild(button);
+  button.classList.add("button");
+  button.href = '#';
+  button.appendChild(document.createTextNode(title));
+  return button;
 }
 
 function roundTo3SignificantDigits(value) {
