@@ -80,6 +80,20 @@ const population =
 , "Kyrgyzstan": 6533500
 , "Kazakhstan": 18711200
 , "El Salvador": 6420746
+, "Bulgaria": 6951482
+, "Tunisia": 11722038
+, "Jordan": 10658123
+, "Bosnia and Herzegovina": 3301000
+, "Croatia": 4058165
+, "Paraguay": 7292672
+, "Costa Rica": 4999441
+, "Burma": 53582855
+, "Nepal": 28095714
+, "Azerbaijan": 10127874
+, "Slovakia": 5457926
+, "Ethiopia": 109224414
+, "Venezuela": 28887118
+, "Georgia": 3716858
 };
 
 const countriesWikiUrlThe =
