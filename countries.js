@@ -94,6 +94,9 @@ const population =
 , "Ethiopia": 109224414
 , "Venezuela": 28887118
 , "Georgia": 3716858
+, "Lithuania": 2793694
+, "Kenya": 47564296
+, "Libya": 6871287
 };
 
 const countriesWikiUrlThe =
