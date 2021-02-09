@@ -202,7 +202,7 @@ function renderTable() {
   for (const i in countries) {
     const country = countries[i];
 
-    if (hideSmallCountries && country.population < 20000000) {
+    if (hideSmallCountries && country.population < 15000000) {
       continue;
     }
 
