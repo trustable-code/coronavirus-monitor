@@ -1,6 +1,7 @@
 "use strict";
 
 const casesIncreaseDays = 7;
+const numberOfEntriesPerPage = 50;
 
 var countries = {};
 var maxDisplayCountries;
@@ -24,7 +25,7 @@ function main() {
 }
 
 function reset() {
-  maxDisplayCountries = 25;
+  maxDisplayCountries = numberOfEntriesPerPage;
   sortColumnIndex = 8;
   hideSmallCountries = false;
 }
@@ -214,7 +215,7 @@ function renderTable() {
       a.appendChild(document.createTextNode("More entries"));
       a.addEventListener("click", function(event) {
         event.preventDefault();
-        maxDisplayCountries = maxDisplayCountries + 25;
+        maxDisplayCountries = maxDisplayCountries + numberOfEntriesPerPage;
         renderPage();
       });
       break;
