@@ -97,6 +97,19 @@ const population =
 , "Lithuania": 2793694
 , "Kenya": 47564296
 , "Libya": 6871287
+, "Uruguay": 3518552
+, "Albania": 2845955
+, "Kosovo": 1873160
+, "Latvia": 1907675
+, "Syria": 17500657
+, "Zimbabwe": 14215809
+, "Montenegro": 621873
+, "Zambia": 17351708
+, "Yemen": 28498683
+, "Estonia": 1329460
+, "Malawi": 19129952
+, "Cameroon": 26545864
+, "Senegal": 15854323
 };
 
 const countriesWikiUrlThe =
