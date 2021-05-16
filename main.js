@@ -252,7 +252,7 @@ function renderTable() {
     // deaths
     addCellWithInt(row, country.deaths);
     // deaths per population
-    addCellWithRatio(row, country.deathsRatio, 2, 0.0015);
+    addCellWithRatio(row, country.deathsRatio, 2, 0.0017);
     // deaths per cases
     addCellWithRatio(row, country.deathsCasesRatio, 1, 0.05);
     // death rate per year
