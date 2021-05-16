@@ -244,15 +244,15 @@ function renderTable() {
     // cases
     addCellWithInt(row, country.cases);
     // cases per population
-    addCellWithRatio(row, country.casesRatio, 2);
+    addCellWithRatio(row, country.casesRatio, 1);
     // cases growth rate per day
-    addCellWithRatio(row, country.casesGrowthRate, 1);
+    addCellWithRatio(row, country.casesGrowthRate, 2);
     // cses growth per population and month
     addCellWithRatio(row, country.casesIncreaseRatio, 1, 0.05);
     // deaths
     addCellWithInt(row, country.deaths);
     // deaths per population
-    addCellWithRatio(row, country.deathsRatio, 3, 0.0015);
+    addCellWithRatio(row, country.deathsRatio, 2, 0.0015);
     // deaths per cases
     addCellWithRatio(row, country.deathsCasesRatio, 1, 0.05);
     // death rate per year
