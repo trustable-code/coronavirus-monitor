@@ -239,7 +239,7 @@ function renderTable() {
     // cases per population
     addCellWithRatio(row, country.casesRatio, 1);
     // new cases since 7 days per 100,000 people
-    addCellWithInt(row, country.incidence);
+    addCellWithInt(row, country.incidence, 500);
     // deaths
     addCellWithInt(row, country.deaths);
     // deaths per population
@@ -297,7 +297,7 @@ function roundTo3SignificantDigits(value) {
   }
 }
 
-function addCellWithInt(row, value) {
+function addCellWithInt(row, value, redAbove = -1) {
   if (value == 0) {
     addCellWithNaValue(row);
     return;
@@ -306,10 +306,13 @@ function addCellWithInt(row, value) {
   value = roundTo3SignificantDigits(Math.round(value));
   cell.appendChild(document.createTextNode(value.toLocaleString()));
   cell.classList.add("number");
+  if (redAbove != -1 && value > redAbove) {
+    cell.classList.add("red");
+  }
   row.appendChild(cell);
 }
 
-function addCellWithRatio(row, value, numberOfDecimals, redAbove) {
+function addCellWithRatio(row, value, numberOfDecimals, redAbove = -1) {
   if (value == 0) {
     addCellWithNaValue(row);
     return;
