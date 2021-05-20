@@ -1,6 +1,5 @@
 "use strict";
 
-const casesIncreaseDays = 7;
 const numberOfEntriesPerPage = 50;
 
 var countries = {};
@@ -26,7 +25,7 @@ function main() {
 
 function reset() {
   maxDisplayCountries = numberOfEntriesPerPage;
-  sortColumnIndex = 8;
+  sortColumnIndex = 7;
   hideSmallCountries = false;
 }
 
@@ -69,30 +68,19 @@ function onLoadDataFinished() {
     if (country.cases < 50) {
       continue;
     }
+
     country.population = 0;
     country.casesRatio = 0;
     country.deathsRatio = 0;
-    country.casesIncreaseRatio = 0;
-
-    const oldCases = countryData[countryData.length - casesIncreaseDays - 1]["confirmed"];
-    if (oldCases > 0) {
-      country.casesGrowthRate = Math.pow(country.cases / oldCases, 1 / casesIncreaseDays) - 1;
-      if (country.casesGrowthRate < 0) {
-        country.casesGrowthRate = 0;
-      }
-    } else {
-      country.casesGrowthRate = 0;
-    }
     country.deathsCasesRatio = country.deaths / country.cases;
+
     if (countryName in population) {
       country.population = population[countryName];
       country.casesRatio = country.cases / country.population;
       country.deathsRatio = country.deaths / country.population;
-      if (country.casesGrowthRate > 0) {
-        country.casesIncreaseRatio = (country.cases * Math.pow(1 + country.casesGrowthRate, 30)) / country.population;
-      }
     }
 
+    // calculate death rate per year
     country.deathRatePerYear = 0;
     if (country.population > 0) {
       for (var i = 0; i < countryData.length; i++) {
@@ -102,6 +90,20 @@ function onLoadDataFinished() {
           break;
         }
       }
+    }
+
+    // calculate new cases since 7 days per 100,000 people
+    country.incidence = 0;
+    if (country.population > 0) {
+      var i = countryData.length - 1;
+      var count = 0;
+      const confirmedNew = countryData[i]["confirmed"];
+      while (i > 0 && count < 7) {
+        count++;
+        i--;
+      }
+      const confirmedOld = countryData[i]["confirmed"];
+      country.incidence = (confirmedNew - confirmedOld) / country.population * 100000;
     }
 
     countries.push(country);
@@ -128,30 +130,25 @@ function sortCountries() {
   }
   else if (sortColumnIndex == 5) {
     countries.sort(function(a, b) {
-      return a.casesGrowthRate < b.casesGrowthRate ? 1 : -1;
+      return a.incidence < b.incidence ? 1 : -1;
     });
   }
   else if (sortColumnIndex == 6) {
     countries.sort(function(a, b) {
-      return a.casesIncreaseRatio < b.casesIncreaseRatio ? 1 : -1;
+      return a.deaths < b.deaths ? 1 : -1;
     });
   }
   else if (sortColumnIndex == 7) {
     countries.sort(function(a, b) {
-      return a.deaths < b.deaths ? 1 : -1;
+      return a.deathsRatio < b.deathsRatio ? 1 : -1;
     });
   }
   else if (sortColumnIndex == 8) {
     countries.sort(function(a, b) {
-      return a.deathsRatio < b.deathsRatio ? 1 : -1;
-    });
-  }
-  else if (sortColumnIndex == 9) {
-    countries.sort(function(a, b) {
       return a.deathsCasesRatio < b.deathsCasesRatio ? 1 : -1;
     });
   }
-  else if (sortColumnIndex == 10) {
+  else if (sortColumnIndex == 9) {
     countries.sort(function(a, b) {
       return a.deathRatePerYear < b.deathRatePerYear ? 1 : -1;
     });
@@ -173,14 +170,10 @@ function renderTable() {
   // Table head
   const row = document.createElement("TR");
   table.appendChild(row);
-  const columns = ["#", "Country", "Population", "Cases", "Cases/Population", "Cases Growth\nRate per Day", "Cases/Population\nGrowth per Month", "Deaths", "Deaths/Population", "Deaths/Cases", "Death Rate\nper Year"];
-  const columnTooltips = {5: "Average of the last " + casesIncreaseDays + " days"};
+  const columns = ["#", "Country", "Population", "Cases", "Cases/Population", "New Cases Since 7 Days\nper 100,000 people", "Deaths", "Deaths/Population", "Deaths/Cases", "Death Rate\nper Year"];
   for (const i in columns) {
     const cell = document.createElement("TH");
     cell.appendChild(document.createTextNode(columns[i]));
-    if (i in columnTooltips) {
-      cell.title = columnTooltips[i];
-    }
     if (i == sortColumnIndex) {
       const sortIcon = document.createElement("SPAN");
       sortIcon.classList.add("sortIcon");
@@ -245,10 +238,8 @@ function renderTable() {
     addCellWithInt(row, country.cases);
     // cases per population
     addCellWithRatio(row, country.casesRatio, 1);
-    // cases growth rate per day
-    addCellWithRatio(row, country.casesGrowthRate, 2);
-    // cses growth per population and month
-    addCellWithRatio(row, country.casesIncreaseRatio, 1, 0.05);
+    // new cases since 7 days per 100,000 people
+    addCellWithInt(row, country.incidence);
     // deaths
     addCellWithInt(row, country.deaths);
     // deaths per population
@@ -291,7 +282,7 @@ function addButton(title) {
 
 function roundTo3SignificantDigits(value) {
   if (value > 1000) {
-    const d = Math.pow(10, value.toString().length - 3);
+    const d = Math.pow(10, Math.round(value).toString().length - 3);
     return Math.round(value / d) * d;
   } else if (value <= 0.00000001) {
     return value;
@@ -312,7 +303,8 @@ function addCellWithInt(row, value) {
     return;
   }
   let cell = document.createElement("TD");
-  cell.appendChild(document.createTextNode(roundTo3SignificantDigits(value).toLocaleString()));
+  value = roundTo3SignificantDigits(Math.round(value));
+  cell.appendChild(document.createTextNode(value.toLocaleString()));
   cell.classList.add("number");
   row.appendChild(cell);
 }
