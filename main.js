@@ -122,53 +122,57 @@ function calculateIncidence(countryData, country, daysBack) {
 function sortCountries() {
   if (sortColumnIndex == 2) {
     countries.sort(function(a, b) {
-      return a.population < b.population ? 1 : -1;
+      return sortHelper(a.population, b.population);
     });
   }
   else if (sortColumnIndex == 3) {
     countries.sort(function(a, b) {
-      return a.cases < b.cases ? 1 : -1;
+      return sortHelper(a.cases, b.cases);
     });
   }
   else if (sortColumnIndex == 4) {
     countries.sort(function(a, b) {
-      return a.casesRatio < b.casesRatio ? 1 : -1;
+      return sortHelper(a.casesRatio, b.casesRatio);
     });
   }
   else if (sortColumnIndex == 5) {
     countries.sort(function(a, b) {
-      return a.incidence < b.incidence ? 1 : -1;
+      return sortHelper(a.incidence, b.incidence);
     });
   }
   else if (sortColumnIndex == 6) {
     countries.sort(function(a, b) {
-      if (a.incidenceChange == 0 && b.incidenceChange != 0)
-        return 1;
-      if (a.incidenceChange != 0 && b.incidenceChange == 0)
-        return -1;
-      return a.incidenceChange < b.incidenceChange ? 1 : -1;
+      return sortHelper(a.incidenceChange, b.incidenceChange);
     });
   }
   else if (sortColumnIndex == 7) {
     countries.sort(function(a, b) {
-      return a.deaths < b.deaths ? 1 : -1;
+      return sortHelper(a.deaths, b.deaths);
     });
   }
   else if (sortColumnIndex == 8) {
     countries.sort(function(a, b) {
-      return a.deathsRatio < b.deathsRatio ? 1 : -1;
+      return sortHelper(a.deathsRatio, b.deathsRatio);
     });
   }
   else if (sortColumnIndex == 9) {
     countries.sort(function(a, b) {
-      return a.deathsCasesRatio < b.deathsCasesRatio ? 1 : -1;
+      return sortHelper(a.deathsCasesRatio, b.deathsCasesRatio);
     });
   }
   else if (sortColumnIndex == 10) {
     countries.sort(function(a, b) {
-      return a.deathRatePerYear < b.deathRatePerYear ? 1 : -1;
+      return sortHelper(a.deathRatePerYear, b.deathRatePerYear);
     });
   }
+}
+
+function sortHelper(a, b) {
+  if (a == 0 && b != 0)
+    return 1;
+  if (a != 0 && b == 0)
+    return -1;
+  return a < b ? 1 : -1;
 }
 
 function renderPage() {
